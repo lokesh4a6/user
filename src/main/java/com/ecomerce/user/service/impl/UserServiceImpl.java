@@ -32,9 +32,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateUser(User user) {
+		UserEntity savedUser = userRepository.save(userMapper.toEntity(user));
+		return "Updated successfully";
+	}
+
+	@Override
+	public User getById(Long id) {
+		UserEntity savedUser = userRepository.getReferenceById(id);
+		return userMapper.toDTO(savedUser);
 	}
 
 	
