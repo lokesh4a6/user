@@ -7,6 +7,6 @@ import com.ecomerce.user.dto.User;
 import com.ecomerce.user.entity.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, String>{
+public interface UserRepository extends JpaRepository<UserEntity, Long>{
 
 }

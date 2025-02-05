@@ -7,6 +7,7 @@ import com.ecomerce.user.dto.User;
 import com.ecomerce.user.entity.UserEntity;
 import com.ecomerce.user.repository.UserRepository;
 import com.ecomerce.user.service.UserService;
+import com.ecomerce.user.util.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,11 +15,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
-	public String addUser(UserEntity user) {
-		UserEntity savedUser = (UserEntity)userRepository.save(user);
-		return "1";
+	public Long addUser(User user) {
+		userMapper.toEntity(user);
+		UserEntity savedUser = (UserEntity)userRepository.save(userMapper.toEntity(user));
+		return savedUser.getId();
 	}
 
 	@Override

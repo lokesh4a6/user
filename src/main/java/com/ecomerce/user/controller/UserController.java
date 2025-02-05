@@ -1,7 +1,7 @@
 package com.ecomerce.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,14 +16,15 @@ import com.ecomerce.user.service.UserService;
 @RequestMapping("/api")
 public class UserController {
 		
-	/*
-	 * @Autowired private UserService userService;
-	 */
+	  @Autowired
+	  private UserService userService;
+	 
 	
 	@PostMapping("/add")
-	public String addUser(@RequestBody User user) {
-		//String userid = userService.addUser(user);
-		return "hello";
+	public ResponseEntity<String> addUser(@RequestBody User user) {
+		Long userid = userService.addUser(user);
+		ResponseEntity<String> res = new ResponseEntity<>("Created user: " + userid , HttpStatus.OK );
+		return res;
 	}
 	
 	@GetMapping("/getUser")
