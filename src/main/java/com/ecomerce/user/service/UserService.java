@@ -7,6 +7,6 @@ public interface UserService {
 
 	Long addUser(User user);
 	User getById(Long id);
-	String deleteUser(String id);
+	String deleteUser(Long id);
 	String updateUser(User user);
 }

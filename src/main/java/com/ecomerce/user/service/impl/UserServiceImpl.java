@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String deleteUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String deleteUser(Long id) {
+		userRepository.deleteById(id);
+		return "User deleted sucessfully";
 	}
 
 	@Override
