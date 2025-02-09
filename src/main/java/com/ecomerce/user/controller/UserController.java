@@ -27,7 +27,7 @@ public class UserController {
 	  private UserService userService;
 	 
 	
-	@PostMapping("/add")
+	@PostMapping(value = "/add" , consumes = "application/json")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		Long userid = userService.addUser(user);
 		logger.info("user created with id:" + userid);
@@ -35,13 +35,13 @@ public class UserController {
 		return res;
 	}
 	
-	@GetMapping("/getUser/{id}")
+	@GetMapping(value = "/getUser/{id}", produces = "application/json")
 	public ResponseEntity<User> getUser(@PathVariable Long id) {
 		User user = userService.getById(id);
 	      return ResponseEntity.ok(user);
 	}
 	
-	@PutMapping("/update")
+	@PutMapping(value = "/update" ,consumes = "application/json")
 	public ResponseEntity<String> updateUser(@RequestBody User user){
 		String res = userService.updateUser(user);
 		return new ResponseEntity<>(res , HttpStatus.OK );
