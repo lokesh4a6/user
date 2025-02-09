@@ -5,8 +5,8 @@ import com.ecomerce.user.entity.UserEntity;
 
 public interface UserService {
 
-	Long addUser(User user);
-	User getById(Long id);
-	String deleteUser(Long id);
-	String updateUser(User user);
+	public Long addUser(User user);
+	public User getById(Long id);
+	public String deleteUser(Long id);
+	public String updateUser(User user);
 }

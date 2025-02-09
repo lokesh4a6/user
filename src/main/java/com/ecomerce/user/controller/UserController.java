@@ -1,5 +1,7 @@
 package com.ecomerce.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import com.ecomerce.user.service.UserService;
 @RestController
 @RequestMapping("/api")
 public class UserController {
+	
+	private static final Logger logger =  LoggerFactory.getLogger(UserController.class);
 		
 	  @Autowired
 	  private UserService userService;
@@ -26,6 +30,7 @@ public class UserController {
 	@PostMapping("/add")
 	public ResponseEntity<String> addUser(@RequestBody User user) {
 		Long userid = userService.addUser(user);
+		logger.info("user created with id:" + userid);
 		ResponseEntity<String> res = new ResponseEntity<>("Created user: " + userid , HttpStatus.OK );
 		return res;
 	}
@@ -43,8 +48,8 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable Long userId){
-		String res = userService.deleteUser(userId);
+	public ResponseEntity<String> deleteUser(@PathVariable Long id){
+		String res = userService.deleteUser(id);
 		return new ResponseEntity<>(res , HttpStatus.OK );
 	}
 }
