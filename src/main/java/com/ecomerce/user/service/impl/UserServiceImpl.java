@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecomerce.user.dto.User;
 import com.ecomerce.user.entity.UserEntity;
+import com.ecomerce.user.exception.UserNotFoundException;
 import com.ecomerce.user.repository.UserRepository;
 import com.ecomerce.user.service.UserService;
 import com.ecomerce.user.util.UserMapper;
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String deleteUser(Long id) {
+		
+		userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user with id: " + id  + " not found"));
 		userRepository.deleteById(id);
 		logger.info("user with id {} deleted sucessfully: " , id);
 		return "User deleted sucessfully";
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateUser(User user) {
+		userRepository.findById(user.getId()).orElseThrow(() -> new UserNotFoundException("user not found"));
 		userRepository.save(UserMapper.toEntity(user));
 		logger.info("user with id {} updated sucessfully: " , user.getId());
 		return "Updated successfully";
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getById(Long id) {
-		UserEntity savedUser = userRepository.getReferenceById(id);
+		var savedUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("user with id: " + id  + " not found"));
 		return UserMapper.toDTO(savedUser);
 	}
 }
